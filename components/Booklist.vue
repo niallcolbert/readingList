@@ -1,11 +1,18 @@
 <template>
   <div>
-    <input v-model="isbn" type="text" @keyup.enter="getBook">
-    <button @click="getBook">Get book details</button>
-    <hr>
-    <p>Title: <span v-text='book.title'></span></p>
-    <p>Author: {{ book.author }}</p>
-    <p>ISBN: <span v-text='book.isbn'></span></p>
+   <p>
+      ISBN: <input v-model="isbn" type="text">
+      <button @click="getBook">Get book details</button>
+    </p>
+    <p>
+      Title: <input v-model="title" type="text">
+    </p>
+    <p>
+      Author: <input v-model="author" type="text">
+    </p>
+   
+    <button @click="addBook">Add Book</button>
+
   </div>
 </template>
 
@@ -17,29 +24,35 @@ export default {
     data() {
       return {
         isbn: "",
-        book: {},
+        title: "",
+        author: ""
       };
     },
     methods: {
       async getBook() {
-        try {
-          const data = await this.$axios.$get(`https://openlibrary.org/isbn/${this.isbn}.json`);
-          this.updateBook(data, this.isbn);
-          this.isbn = ''
-        } catch (error) {
-          console.error(error);
-        }
+        await this.$axios.$get(`https://openlibrary.org/isbn/${this.isbn}.json`).then((res) => {
+          this.updateBook(res, this.isbn);
+        }).catch((err) => console.log(err))
       },
       updateBook(data, isbn) {
-        this.getAuthor(data.authors);
-        this.book.title = data.title;
-        this.book.isbn = isbn;
+        if(data.authors) {
+          this.getAuthor(data.authors)
+        }
+        this.title = data.title;
       }, 
       async getAuthor(author) {
         await this.$axios.$get(`https://openlibrary.org${author[0].key}.json`).then((res) => {
-          this.book.author = res.name;
+          this.author = res.name;
         }).catch((err) => console.log(err))
+      },
+      addBook  () {
+        const book = {
+          isbn: this.isbn,
+          title: this.title,
+          author: this.author
         }
+        this.$store.commit('ADD_BOOK', book);
+      }
     }
 }
 </script>
