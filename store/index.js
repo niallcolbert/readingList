@@ -15,7 +15,7 @@ export const mutations = {
     },
 
     REMOVE_BOOK(state, book) {
-        state.booklist.splice(state.booklist.indexof(book), 1);
+        state.booklist.books.splice(state.booklist.books.indexOf(book), 1);
     },
 
     // UPDATE_BOOK_STATUS(state, book) {

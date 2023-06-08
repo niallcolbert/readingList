@@ -1,5 +1,8 @@
 <template>
-  <Booklist/>
+  <main>
+    <AddBook/>
+    <Booklist/>
+  </main>
 </template>
 
 <script>
