@@ -41,7 +41,10 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    ['nuxt-vuex-localstorage', {
+      localStorage: ['booklist']
+    }]
   ],
 
   axios: {
