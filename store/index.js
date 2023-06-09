@@ -18,8 +18,10 @@ export const mutations = {
         state.booklist.books.splice(state.booklist.books.indexOf(book), 1);
     },
 
-    // UPDATE_BOOK_STATUS(state, book) {
-
-    // }
+    UPDATE_BOOK_STATUS(state, payload) {
+        let index = state.booklist.books.indexOf(payload.book);
+        payload.book.status = payload.status;
+        state.booklist.books[index] = payload.book;
+    }
 
 }

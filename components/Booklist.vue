@@ -3,7 +3,8 @@
     <Book
       v-for="(book, i) in $store.state.booklist.books"
       :key="i"
-      :book="book" />
+      :book="book"
+      :statuses="statuses" />
   </div>
 </template>
 
@@ -13,7 +14,7 @@ export default {
     name: "BookList",
     data() {
       return {
-        
+        statuses: ['Unread', 'In Progress', 'Finished']
       };
     },
     methods: {
