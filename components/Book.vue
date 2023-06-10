@@ -43,10 +43,9 @@
 <script>
 export default {
   name: 'Book',
-  props: ['book', 'statuses'],
+  props: ['book','status','statuses'],
   data() {
     return {
-      status: 0,
       isbn: '',
       title: '',
       author: '',
@@ -76,7 +75,6 @@ export default {
     },
 
     initValues () {
-      this.status = this.book.status || 0;
       this.isbn = this.book.isbn;
       this.title = this.book.title;
       this.author = this.book.author;

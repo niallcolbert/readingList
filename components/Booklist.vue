@@ -9,6 +9,7 @@
         v-for="(book, i) in books"
         :key="i"
         :book="book"
+        :status="book.status"
         :statuses="statuses" />
     </div>
   </div>
