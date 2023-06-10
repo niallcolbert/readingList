@@ -30,6 +30,21 @@ export const mutations = {
         payload.book.author = payload.author;
         payload.book.isbn = payload.isbn;
         state.booklist.books[index] = payload.book;
-    }
+    },
+
+    SORT_BOOKS(state, sortBy) {
+        const books = state.booklist.books;
+        books.sort((a, b) => {
+            let compare = 0;
+            if (a[sortBy] > b[sortBy]) {
+                compare = 1;
+            } else if (b[sortBy] > a[sortBy]) {
+                compare = -1;
+            }
+            return compare;
+        });
+        state.booklist.books = books;
+        
+    },
 
 }

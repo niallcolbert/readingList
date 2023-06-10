@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div v-if="!editMode">
       <p class="title">
         Title: {{ book.title }}
       </p>
@@ -14,7 +14,7 @@
         Status: {{ statuses[status] }}
       </p>
     </div>
-    <div>
+    <div v-else>
         <p class="title">
           Title: <input v-model="title" type="text">
         </p>
@@ -33,6 +33,10 @@
     <button v-if="status !== 1" @click="updateBookStatus(1)" class="update">Change status to In Progress</button>
     <button v-if="status !== 2" @click="updateBookStatus(2)" class="update">Change status to Finished</button>
     <button @click="removeBook" class="delete">Delete</button>
+    <button @click="toggleEditMode" class="update">
+      <span v-if="editMode">Leave Edit Mode</span>
+      <span v-else>Enter Edit Mode</span>
+    </button>
   </div>
 </template>
 
@@ -45,14 +49,12 @@ export default {
       status: 0,
       isbn: '',
       title: '',
-      author: ''
+      author: '',
+      editMode: false
     };
   },
   created() {
-    this.status = this.book.status || 0;
-    this.isbn = this.book.isbn;
-    this.title = this.book.title;
-    this.author = this.book.author;
+    this.initValues();
   },
   methods: {
     removeBook() {
@@ -71,6 +73,18 @@ export default {
         author: this.author, 
         isbn: this.isbn 
       });
+    },
+
+    initValues () {
+      this.status = this.book.status || 0;
+      this.isbn = this.book.isbn;
+      this.title = this.book.title;
+      this.author = this.book.author;
+    },
+
+    toggleEditMode() {
+      this.editMode = !this.editMode;
+      this.initValues();
     }
   }
 }
