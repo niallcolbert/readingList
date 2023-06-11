@@ -1,4 +1,8 @@
-# readingList
+# readingList app
+
+## Github link - https://github.com/niallcolbert/readingList
+
+## Hosting link - https://niallcolbert.github.io/readingList/
 
 ## Build Setup
 
