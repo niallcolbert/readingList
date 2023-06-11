@@ -25,9 +25,20 @@
         <b-button @click="updateBookDetails" variant="primary" class="mb-3">Update book details</b-button>
       </b-card-text>
     </div>
-    <span class="btn position-absolute m-2" style="top:0;right:0;" :class="statusClasses[status]" >
-      Status: {{ statuses[status] }}
+    <span class="position-absolute m-2" style="top:0;right:0;">
+      <star-rating 
+        :rating="rating"
+        :inline="true"
+        :star-size="25"
+        :show-rating="false"
+        @rating-selected="updateBookRating"
+        ></star-rating>
+
+      <span class="btn disabled" :class="statusClasses[status]" >
+          Status: {{ statuses[status] }}
+      </span>
     </span>
+
 
     <b-button-toolbar aria-label="Toolbar with button groups and dropdown menu">
       <b-button-group class="mb-3">
@@ -46,16 +57,18 @@
 
     </b-button-toolbar>
     
-    
-
-    
   </b-card>
 </template>
 
 <script>
+import StarRating from 'vue-star-rating'
+
 export default {
   name: 'Book',
-  props: ['book','status','statuses'],
+  props: ['book','status','rating','statuses'],
+  components: {
+    StarRating
+  },
   data() {
     return {
       isbn: '',
@@ -76,6 +89,10 @@ export default {
     updateBookStatus(status) {
       this.status = status;
       this.$store.commit('UPDATE_BOOK_STATUS', {book: this.book, status: status});
+    },
+
+    updateBookRating(rating) {
+      this.$store.commit('UPDATE_BOOK_RATING', { book: this.book, rating: rating });
     },
 
     updateBookDetails() {
