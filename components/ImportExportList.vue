@@ -14,16 +14,24 @@
               </b-card-text>
             </b-tab>
             <b-tab title="Pantry">
-              <b-card-text>
-                <b-form-group label="Pantry ID:" label-cols-sm="2">
-                  <b-form-input v-model="pantryId" placeholder="Pantry ID"></b-form-input>
-                </b-form-group>
-                <b-form-group label="Basket Name:" label-cols-sm="2">
-                  <b-form-input v-model="basketName" placeholder="Basket Name"></b-form-input>
-                </b-form-group>
+              <b-overlay :show="loading" rounded="sm">
+                <b-card-text>
+                  <b-form-group label="Pantry ID:" label-cols-sm="2">
+                    <b-form-input v-model="pantryId" placeholder="Pantry ID"></b-form-input>
+                  </b-form-group>
+                  <b-form-group label="Basket Name:" label-cols-sm="2">
+                    <b-form-input v-model="basketName" placeholder="Basket Name"></b-form-input>
+                  </b-form-group>
                   <b-button @click="exportToPantry" variant="primary" class="mb-3">Export to Pantry</b-button>
                   <b-button @click="importFromPantry" variant="primary" class="mb-3">Import from Pantry</b-button>
-              </b-card-text>
+                  <b-alert v-model="showErrorAlert" variant="danger" dismissible>
+                    {{ alertText }}
+                  </b-alert>
+                  <b-alert v-model="showSuccessAlert" variant="success" dismissible>
+                    {{ alertText }}
+                  </b-alert>
+                </b-card-text>
+              </b-overlay>
             </b-tab>
           </b-tabs>
         </b-card>
@@ -41,7 +49,11 @@ export default {
     data() {
       return {
         pantryId: '',
-        basketName: ''
+        basketName: '',
+        loading: false,
+        showErrorAlert: false,
+        showSuccessAlert: false,
+        alertText: ""
       };
     },
     methods: {
@@ -60,6 +72,7 @@ export default {
         URL.revokeObjectURL(a.href);
       },
       async exportToPantry() {
+        this.loading = true;
         const config = {
           headers: {
             'Content-Type': 'application/json'
@@ -68,8 +81,15 @@ export default {
 
         const listStringified = JSON.stringify(this.$store.state.booklist);
         await this.$axios.$post(`https://getpantry.cloud/apiv1/pantry/${this.pantryId}/basket/${this.basketName}`, listStringified, config).then((res) => {
-          console.log(res);
-        }).catch((err) => console.log(err))
+          this.loading = false;
+          this.showSuccessAlert = true;
+          this.alertText = "Good news! Your list has successfully been exported to you Pantry Basket."
+        }).catch((err) => {
+          this.loading = false;
+          this.showErrorAlert = true;
+          this.alertText = "Unfortunately we were unable to export your list to your Pantry Basket. Please verify the details you have entered and try again."
+          console.log(err)
+        })
       },
       importFromYaml() {
         let file = this.$refs.doc.files[0];
@@ -88,7 +108,15 @@ export default {
       async importFromPantry() {
         await this.$axios.$get(`https://getpantry.cloud/apiv1/pantry/${this.pantryId}/basket/${this.basketName}`).then((res) => {
           this.commitImportToStore(res.books);
-        }).catch((err) => console.log(err))
+          this.loading = false;
+          this.showSuccessAlert = true;
+          this.alertText = "Good news! Your list has successfully been imported from Pantry."
+        }).catch((err) => {
+          this.loading = false;
+          this.showErrorAlert = true;
+          this.alertText = "Unfortunately we were unable to import data from Pantry. Please verify the details you have entered and try again."
+          console.log(err)
+        })
       },
       commitImportToStore(importData) {
         this.$store.commit('IMPORT_BOOKLIST', importData);
