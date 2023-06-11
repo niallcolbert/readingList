@@ -87,7 +87,6 @@ export default {
     },
 
     updateBookStatus(status) {
-      this.status = status;
       this.$store.commit('UPDATE_BOOK_STATUS', {book: this.book, status: status});
     },
 
