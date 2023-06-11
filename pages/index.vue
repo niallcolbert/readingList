@@ -2,7 +2,7 @@
   <main class="m-3">
     <ImportExportList/>
     <AddBook/>
-    <BookList/>
+    <Booklist/>
   </main>
 </template>
 
