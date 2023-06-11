@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <b-card class="mb-2 p-5">
     <div v-if="!editMode">
       <p class="title">
         Title: {{ book.title }}
@@ -10,34 +10,46 @@
       <p class="isbn">
         ISBN: {{ book.isbn }}
       </p>
-       <p class="status">
-        Status: {{ statuses[status] }}
-      </p>
     </div>
     <div v-else>
-        <p class="title">
-          Title: <input v-model="title" type="text">
-        </p>
-        <p class="author">
-          Author: <input v-model="author" type="text">
-        </p>
-        <p class="isbn">
-          ISBN: <input v-model="isbn" type="text">
-        </p>
-         <p class="status">
-          Status: {{ statuses[status] }}
-        </p>
-        <button @click="updateBookDetails" class="edit">Update book details</button>
-      </div>
-    <button v-if="status !== 0" @click="updateBookStatus(0)" class="update">Change status to Unread</button> 
-    <button v-if="status !== 1" @click="updateBookStatus(1)" class="update">Change status to In Progress</button>
-    <button v-if="status !== 2" @click="updateBookStatus(2)" class="update">Change status to Finished</button>
-    <button @click="removeBook" class="delete">Delete</button>
-    <button @click="toggleEditMode" class="update">
-      <span v-if="editMode">Leave Edit Mode</span>
-      <span v-else>Enter Edit Mode</span>
-    </button>
-  </div>
+      <b-card-text>
+        <b-form-group label="Title:" label-cols-sm="2">
+          <b-form-input v-model="title" placeholder="Title"></b-form-input>
+        </b-form-group>
+        <b-form-group label="Author:" label-cols-sm="2">
+          <b-form-input v-model="author" placeholder="Author"></b-form-input>
+        </b-form-group>
+          <b-form-group label="ISBN:" label-cols-sm="2">
+        <b-form-input v-model="isbn" placeholder="ISBN"></b-form-input>
+        </b-form-group>
+        <b-button @click="updateBookDetails" variant="primary" class="mb-3">Update book details</b-button>
+      </b-card-text>
+    </div>
+    <span class="btn position-absolute m-2" style="top:0;right:0;" :class="statusClasses[status]" >
+      Status: {{ statuses[status] }}
+    </span>
+
+    <b-button-toolbar aria-label="Toolbar with button groups and dropdown menu">
+      <b-button-group class="mb-3">
+        <b-button variant="secondary" @click="updateBookStatus(0)" :disabled="status === 0">Change status to Unread</b-button>
+        <b-button variant="info" @click="updateBookStatus(1)" :disabled="status === 1">Change status to In Progress</b-button>
+        <b-button variant="success" @click="updateBookStatus(2)" :disabled="status === 2">Change status to Finished</b-button>
+      </b-button-group>
+
+      <b-button-group class="mb-3 ml-3">
+        <b-button variant="warning" @click="toggleEditMode">
+          <span v-if="editMode">Leave Edit Mode</span>
+          <span v-else>Enter Edit Mode</span>
+        </b-button>
+        <b-button variant="danger" @click="removeBook">Delete</b-button>
+      </b-button-group>
+
+    </b-button-toolbar>
+    
+    
+
+    
+  </b-card>
 </template>
 
 <script>
@@ -49,7 +61,8 @@ export default {
       isbn: '',
       title: '',
       author: '',
-      editMode: false
+      editMode: false,
+      statusClasses: ['btn-secondary', 'btn-info', 'btn-success']
     };
   },
   created() {
@@ -72,6 +85,7 @@ export default {
         author: this.author, 
         isbn: this.isbn 
       });
+      this.toggleEditMode();
     },
 
     initValues () {

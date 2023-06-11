@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="m-3">
     <ImportExportList/>
     <AddBook/>
     <Booklist/>
