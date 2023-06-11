@@ -1,12 +1,12 @@
 <template>
   <div class="mb-3">
-      <b-button v-b-toggle.collapse-1 variant="primary">Import/Export Reading List</b-button>
+      <b-button v-b-toggle.collapse-1 variant="primary" class="toggleCollapse">Import/Export Reading List</b-button>
       <b-collapse id="collapse-1">
         <b-card no-body>
           <b-tabs card>
             <b-tab title="YAML" active>
               <b-card-text>
-                <b-button @click="exportToYAML" variant="primary" class="mb-3">Export to YAML</b-button>
+                <b-button @click="exportToYAML" variant="primary" class="mb-3 exportToYAML">Export to YAML</b-button>
                 <br>
                 <b-form-group label="Import from YAML:" label-cols-sm="2">
                   <input type="file" ref="doc" @change="importFromYaml()" />
@@ -22,8 +22,8 @@
                   <b-form-group label="Basket Name:" label-cols-sm="2">
                     <b-form-input v-model="basketName" placeholder="Basket Name"></b-form-input>
                   </b-form-group>
-                  <b-button @click="exportToPantry" variant="primary" class="mb-3">Export to Pantry</b-button>
-                  <b-button @click="importFromPantry" variant="primary" class="mb-3">Import from Pantry</b-button>
+                  <b-button @click="exportToPantry" variant="primary" class="mb-3 exportToPantry">Export to Pantry</b-button>
+                  <b-button @click="importFromPantry" variant="primary" class="mb-3 importFromPantry">Import from Pantry</b-button>
                   <b-alert v-model="showErrorAlert" variant="danger" dismissible>
                     {{ alertText }}
                   </b-alert>
