@@ -15,55 +15,37 @@ $ npm run start
 
 # generate static project
 $ npm run generate
+
+# deploy to github pages
+$ npm run deploy
 ```
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+## Technologies
 
-## Special Directories
+The project was completed in JavaScript, using Vue.js and Nuxt.js. UI is using vue-bootstrap.
 
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
+The app is frontend only, so data is being stored in local storage. A Vuex store is being used to handle state data, while the nuxt-vuex-localstorage node-module is automatically saving all Vuex changes encrypted to local storage. 
 
-### `assets`
+## Version control and hosting
 
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
+For version control I've opted for github. Due to the small scale of the project, and working alone, I stuck with creating a new branch from main for each feature, then PR and merge directly back to main before moving on.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
+The hosting is being done using github pages. The app's static files are being generated and pushed on a gh_pages branch which auto deploys.
 
-### `components`
+## Additional functionality
 
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
+### Get book detail via API
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
+Since the book object was to include the ISBN by default, I am capitalising on the openlibrary API to retrieve the rest of the book details as a way of saving the user time on manual entry.
 
-### `layouts`
+Manual entry is still an option, and is often still necessary with a successful GET call to the API, as the author details are not included for eveybook through the API.
 
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
+### Import from YAML/Import from Pantry
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
+Expanding on the initial requirement for export functionality, I've also included import. The app can accept a .yaml file and parse the contents into the Vuex store, or it can use the same Pantry ID and Basket Name from the export to perform a GET against Pantry and populate the Vuex store that way.
 
+This feature makes up for the frontend only, single tenancy nature of the app relying on localstorage. The ability to feed the app a .yaml file or capitalise on a cloud storage account allows the same list to be consumed cross-browser/cross-device.
 
-### `pages`
+### Star ratings
 
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
-
-### `plugins`
-
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
-
-### `static`
-
-This directory contains your static files. Each file inside this directory is mapped to `/`.
-
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
-
-### `store`
-
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+Each book can be assigned a rating of 1-5 stars. More useful in a public profile reading list like you'd find somewhere like Goodreads, but still a nice little extra for the user who likes to track these things.
