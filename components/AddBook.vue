@@ -1,19 +1,19 @@
 <template>
-  <div>
-   <p>
-      ISBN: <input v-model="isbn" type="text">
-      <button @click="getBook">Get book details</button>
-    </p>
-    <p>
-      Title: <input v-model="title" type="text">
-    </p>
-    <p>
-      Author: <input v-model="author" type="text">
-    </p>
-   
-    <button @click="addBook">Add Book</button>
-
-  </div>
+  <b-card class="mb-3">
+    <b-card-text>
+      <b-form-group label="ISBN:" label-cols-sm="2">
+        <b-form-input v-model="isbn" placeholder="ISBN"></b-form-input>
+        <b-button @click="getBook" variant="secondary" :disabled="!isbn" class="float-right mt-2">Get book details</b-button>
+      </b-form-group>
+      <b-form-group label="Title:" label-cols-sm="2">
+        <b-form-input v-model="title" placeholder="Title"></b-form-input>
+      </b-form-group>
+      <b-form-group label="Author:" label-cols-sm="2">
+        <b-form-input v-model="author" placeholder="Author"></b-form-input>
+      </b-form-group>
+      <b-button @click="addBook" variant="primary" class="mb-3">Add Book</b-button>
+    </b-card-text>
+  </b-card>
 </template>
 
 <script>

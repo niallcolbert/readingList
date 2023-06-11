@@ -1,16 +1,35 @@
 <template>
-  <div>
-       <button @click="exportToYAML" class="update">Export to YAML</button>
-        <label>Import from YAML</label><input type="file" ref="doc" @change="importFromYaml()" />
+  <div class="mb-3">
+      <b-button v-b-toggle.collapse-1 variant="primary">Import/Export Reading List</b-button>
+      <b-collapse id="collapse-1">
+        <b-card no-body>
+          <b-tabs card>
+            <b-tab title="YAML" active>
+              <b-card-text>
+                <b-button @click="exportToYAML" variant="primary" class="mb-3">Export to YAML</b-button>
+                <br>
+                <b-form-group label="Import from YAML:" label-cols-sm="2">
+                  <input type="file" ref="doc" @change="importFromYaml()" />
+                </b-form-group>
+              </b-card-text>
+            </b-tab>
+            <b-tab title="Pantry">
+              <b-card-text>
+                <b-form-group label="Pantry ID:" label-cols-sm="2">
+                  <b-form-input v-model="pantryId" placeholder="Pantry ID"></b-form-input>
+                </b-form-group>
+                <b-form-group label="Basket Name:" label-cols-sm="2">
+                  <b-form-input v-model="basketName" placeholder="Basket Name"></b-form-input>
+                </b-form-group>
+                  <b-button @click="exportToPantry" variant="primary" class="mb-3">Export to Pantry</b-button>
+                  <b-button @click="importFromPantry" variant="primary" class="mb-3">Import from Pantry</b-button>
+              </b-card-text>
+            </b-tab>
+          </b-tabs>
+        </b-card>
+      </b-collapse>
 
-      <p class="pantryId">
-        Pantry ID: <input v-model="pantryId" type="text">
-      </p>
-      <p class="basketName">
-        Basket Name: <input v-model="basketName" type="text">
-      </p>
-      <button @click="exportToPantry" class="update">Export to Pantry</button>
-      <button @click="importFromPantry" class="update">Import from Pantry</button>
+       
   </div>
 </template>
 
