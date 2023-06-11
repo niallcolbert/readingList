@@ -11,7 +11,8 @@ export const mutations = {
             isbn: book.isbn, 
             title: book.title,
             author: book.author,
-            status: 0// 0: unread, 1:in progress, 2: finished
+            status: 0,// 0: unread, 1:in progress, 2: finished,
+            rating: null
         });
         this.commit('SORT_BOOKS', state.booklist.sortBy);
     },
@@ -23,6 +24,13 @@ export const mutations = {
     UPDATE_BOOK_STATUS(state, payload) {
         let index = state.booklist.books.indexOf(payload.book);
         payload.book.status = payload.status;
+        state.booklist.books[index] = payload.book;
+        this.commit('SORT_BOOKS', state.booklist.sortBy);
+    },
+
+    UPDATE_BOOK_RATING(state, payload) {
+        let index = state.booklist.books.indexOf(payload.book);
+        payload.book.rating = payload.rating;
         state.booklist.books[index] = payload.book;
         this.commit('SORT_BOOKS', state.booklist.sortBy);
     },

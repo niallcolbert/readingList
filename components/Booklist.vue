@@ -4,7 +4,8 @@
         <b-button-group class="mb-3">
           <b-button variant="success" @click="sortBooks('title')" :disabled="sortBy === 'title'">Sort by title</b-button>
           <b-button variant="info" @click="sortBooks('author')" :disabled="sortBy === 'author'">Sort by author</b-button>
-          <b-button variant="warning" @click="sortBooks('isbn')" :disabled="sortBy === 'isbn'">Sort by ISBN</b-button>
+          <b-button variant="warning" @click="sortBooks('rating')" :disabled="sortBy === 'rating'">Sort by rating</b-button>
+          <b-button variant="danger" @click="sortBooks('isbn')" :disabled="sortBy === 'isbn'">Sort by ISBN</b-button>
           <b-button variant="primary" @click="sortBooks('status')" :disabled="sortBy === 'status'">Sort by status</b-button>
         </b-button-group>
 
@@ -19,6 +20,7 @@
           :key="i"
           :book="book"
           :status="book.status"
+          :rating="book.rating"
           :statuses="statuses" />
       </div>
   </b-card>
