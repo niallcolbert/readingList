@@ -43,8 +43,11 @@ export const mutations = {
             }
             return compare;
         });
-        state.booklist.books = books;
-        
+        state.booklist.books = books;  
     },
+
+    IMPORT_BOOKLIST(state, books) {
+        state.booklist.books = books; 
+    }
 
 }
