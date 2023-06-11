@@ -2,15 +2,15 @@
   <b-card>
       <b-button-toolbar aria-label="Toolbar with button groups and dropdown menu">
         <b-button-group class="mb-3">
-          <b-button variant="success" @click="sortBooks('title')" :disabled="sortBy === 'title'">Sort by title</b-button>
-          <b-button variant="info" @click="sortBooks('author')" :disabled="sortBy === 'author'">Sort by author</b-button>
-          <b-button variant="warning" @click="sortBooks('rating')" :disabled="sortBy === 'rating'">Sort by rating</b-button>
-          <b-button variant="danger" @click="sortBooks('isbn')" :disabled="sortBy === 'isbn'">Sort by ISBN</b-button>
-          <b-button variant="primary" @click="sortBooks('status')" :disabled="sortBy === 'status'">Sort by status</b-button>
+          <b-button variant="success" @click="sortBooks('title')" :disabled="sortBy === 'title'" class="sortBooks">Sort by title</b-button>
+          <b-button variant="info" @click="sortBooks('author')" :disabled="sortBy === 'author'" class="sortBooks">Sort by author</b-button>
+          <b-button variant="warning" @click="sortBooks('rating')" :disabled="sortBy === 'rating'" class="sortBooks">Sort by rating</b-button>
+          <b-button variant="danger" @click="sortBooks('isbn')" :disabled="sortBy === 'isbn'" class="sortBooks">Sort by ISBN</b-button>
+          <b-button variant="primary" @click="sortBooks('status')" :disabled="sortBy === 'status'" class="sortBooks">Sort by status</b-button>
         </b-button-group>
 
         <b-button-group class="mb-3 ml-3">
-          <b-button variant="primary" @click="reverseSortDirection()">Asc/Desc</b-button>
+          <b-button variant="primary" @click="reverseSortDirection()" class="reverseSortDirection">Asc/Desc</b-button>
         </b-button-group>
       </b-button-toolbar>
    

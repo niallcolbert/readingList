@@ -7,7 +7,7 @@
           <b-alert v-model="showErrorAlert" variant="danger" dismissible>
             {{ alertText }}
           </b-alert>
-          <b-button @click="getBook" variant="secondary" :disabled="!isbn" class="float-right mt-2">Get book details</b-button>
+          <b-button @click="getBook" variant="secondary" :disabled="!isbn" class="float-right mt-2 getBook">Get book details</b-button>
         </b-form-group>
         <b-form-group label="Title:" label-cols-sm="2">
           <b-form-input v-model="title" placeholder="Title"></b-form-input>
@@ -15,7 +15,7 @@
         <b-form-group label="Author:" label-cols-sm="2">
           <b-form-input v-model="author" placeholder="Author"></b-form-input>
         </b-form-group>
-        <b-button @click="addBook" variant="primary" class="mb-3">Add Book</b-button>
+        <b-button @click="addBook" variant="primary" class="mb-3 addBook">Add Book</b-button>
       </b-card-text>
     </b-card>
   </b-overlay>
