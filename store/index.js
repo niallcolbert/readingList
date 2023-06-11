@@ -12,7 +12,7 @@ export const mutations = {
             title: book.title,
             author: book.author,
             status: 0,// 0: unread, 1:in progress, 2: finished,
-            rating: null
+            rating: 0
         });
         this.commit('SORT_BOOKS', state.booklist.sortBy);
     },
